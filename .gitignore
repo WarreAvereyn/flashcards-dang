@@ -1,0 +1,76 @@
+# =========================
+# .NET / C#
+# =========================
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.dll
+*.exe
+*.pdb
+*.mdf
+*.ldf
+project.lock.json
+/packages/
+*.nupkg
+*.snupkg
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# =========================
+# Node / Angular
+# =========================
+node_modules/
+dist/
+tmp/
+.angular/
+.sass-cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# =========================
+# IDE / Editors
+# =========================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+*.env.local
+appsettings.*.local.json
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
