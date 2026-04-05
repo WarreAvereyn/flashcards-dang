@@ -67,8 +67,14 @@ Desktop.ini
 # Environment / Secrets
 # =========================
 .env
-*.env.local
-appsettings.*.local.json
+.env.*
+!.env.example
+appsettings.*.json
+secrets.json
+*.pfx
+*.p12
+*.pem
+*.key
 
 # =========================
 # Docker
