@@ -1,6 +1,7 @@
 using backend.Models;
 using backend.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services;
 
@@ -9,6 +10,7 @@ public interface ICardService
     Task<List<Card>> GetAllCardsAsync(int deckId);
     Task<Card?> GetCardAsync(int deckId, int cardId);
     Task CreateCardAsync(int deckId, Card card);
+    Task<Card?> UpdateCardAsync(int deckId, int cardId, Card card);
 }
 
 public class CardService : ICardService
@@ -37,5 +39,23 @@ public class CardService : ICardService
         card.DeckId = deckId;
         _context.Cards.Add(card);
         return _context.SaveChangesAsync();
+    }
+
+    public async Task<Card?> UpdateCardAsync(int deckId, int cardId, Card card)
+    {
+        var existingCard = await _context.Cards
+            .FirstOrDefaultAsync(c => c.DeckId == deckId && c.Id == cardId);
+
+        if (existingCard == null)
+            return null;
+
+        existingCard.DeckId = card.DeckId;
+        existingCard.Front = card.Front;
+        existingCard.Back = card.Back;
+        existingCard.UpdatedAt = DateTime.Now;
+
+        await _context.SaveChangesAsync();
+
+        return existingCard;
     }
 }

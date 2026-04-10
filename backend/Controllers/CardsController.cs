@@ -40,5 +40,15 @@ public class CardsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { deckId = card.DeckId, id = card.Id }, card);
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int deckId, int id, [FromBody] Card card)
+    {
+        var updated = await _cardService.UpdateCardAsync(deckId, id, card);
+
+        if (updated == null)
+            return NotFound();
+
+        return Ok(updated);
+    }
 
 }
