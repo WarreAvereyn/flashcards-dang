@@ -1,4 +1,5 @@
 namespace backend.Models;
+using System.Text.Json.Serialization;
 
 public class Card
 {
@@ -9,5 +10,6 @@ public class Card
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 
-    public Deck Deck { get; set; } = null!;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public Deck? Deck { get; set; }
 }

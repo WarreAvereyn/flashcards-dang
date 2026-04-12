@@ -1,0 +1,30 @@
+@baseUrl = http://localhost:5138
+@deckId = 1
+
+### Get all cards in deck
+GET {{baseUrl}}/decks/{{deckId}}/cards
+
+### Get card by id
+GET {{baseUrl}}/decks/{{deckId}}/cards/101
+
+### Create card
+POST {{baseUrl}}/decks/{{deckId}}/cards
+Content-Type: application/json
+
+{
+  "front": "Hola",
+  "back": "Hello"
+}
+
+### Update card
+PUT {{baseUrl}}/decks/{{deckId}}/cards/101
+Content-Type: application/json
+
+{
+  "deckId": 1,
+  "front": "Hola",
+  "back": "Hello (updated)"
+}
+
+### Delete card
+DELETE {{baseUrl}}/decks/{{deckId}}/cards/101

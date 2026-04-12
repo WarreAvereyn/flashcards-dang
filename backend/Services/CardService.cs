@@ -46,7 +46,7 @@ public class CardService : ICardService
             return null;
 
         card.DeckId = deckId;
-        card.CreatedAt = DateTime.Now;
+        card.CreatedAt = DateTime.UtcNow;
         _context.Cards.Add(card);
         await _context.SaveChangesAsync();
 
@@ -71,7 +71,7 @@ public class CardService : ICardService
         existingCard.DeckId = card.DeckId;
         existingCard.Front = card.Front;
         existingCard.Back = card.Back;
-        existingCard.UpdatedAt = DateTime.Now;
+        existingCard.UpdatedAt = DateTime.UtcNow;
 
         await _context.SaveChangesAsync();
 

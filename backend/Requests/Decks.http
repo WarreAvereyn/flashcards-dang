@@ -1,0 +1,28 @@
+@baseUrl = http://localhost:5138
+
+### Get all decks
+GET {{baseUrl}}/decks
+
+### Get deck by id
+GET {{baseUrl}}/decks/1
+
+### Create deck
+POST {{baseUrl}}/decks
+Content-Type: application/json
+
+{
+  "name": "Spanish Vocabulary",
+  "description": "Common Spanish words and phrases"
+}
+
+### Update deck
+PUT {{baseUrl}}/decks/3
+Content-Type: application/json
+
+{
+  "name": "Spanish Vocabulary (Updated)",
+  "description": "Updated description"
+}
+
+### Delete deck
+DELETE {{baseUrl}}/decks/3

@@ -38,7 +38,7 @@ public class DeckService : IDeckService
 
     public async Task<Deck?> CreateDeckAsync(Deck deck)
     {
-        deck.CreatedAt = DateTime.Now;
+        deck.CreatedAt = DateTime.UtcNow;
 
         _context.Decks.Add(deck);
         await _context.SaveChangesAsync();
@@ -53,7 +53,7 @@ public class DeckService : IDeckService
         if(existingDeck is null)
             return null;
         
-        existingDeck.UpdatedAt = DateTime.Now;
+        existingDeck.UpdatedAt = DateTime.UtcNow;
         existingDeck.Description = deck.Description;
         existingDeck.Name = deck.Name;
 
