@@ -26,6 +26,10 @@ public class CardsController : ControllerBase
     public async Task<IActionResult> GetById(int deckId, int id)
     {
         var card = await _cardService.GetCardAsync(deckId, id);
+        
+        if (card == null)
+            return NotFound();
+        
         return Ok(card);
     }
 
@@ -36,8 +40,13 @@ public class CardsController : ControllerBase
         {
             return BadRequest();
         }
-        await _cardService.CreateCardAsync(deckId, card);
-        return CreatedAtAction(nameof(GetById), new { deckId = card.DeckId, id = card.Id }, card);
+
+        var created = await _cardService.CreateCardAsync(deckId, card);
+        
+        if (created == null)
+            return NotFound();
+
+        return CreatedAtAction(nameof(GetById), new { deckId = created.DeckId, id = created.Id }, created);
     }
 
     [HttpPut("{id}")]

@@ -9,7 +9,7 @@ public interface ICardService
 {
     Task<List<Card>> GetAllCardsAsync(int deckId);
     Task<Card?> GetCardAsync(int deckId, int cardId);
-    Task CreateCardAsync(int deckId, Card card);
+    Task<Card?> CreateCardAsync(int deckId, Card card);
     Task<Card?> UpdateCardAsync(int deckId, int cardId, Card card);
 }
 
@@ -30,15 +30,22 @@ public class CardService : ICardService
 
     public async Task<Card?> GetCardAsync(int deckId, int cardId)
     {
-        var card = await _context.Cards.Where(c => (c.DeckId == deckId && c.Id == cardId)).FirstOrDefaultAsync();
+        var card = await _context.Cards.Where(c => c.DeckId == deckId && c.Id == cardId).FirstOrDefaultAsync();
         return card;
     }
 
-    public Task CreateCardAsync(int deckId, Card card)
+    public async Task<Card?> CreateCardAsync(int deckId, Card card)
     {
+        var deckExists = await _context.Decks.AnyAsync(d => d.Id == deckId);
+        if (!deckExists)
+            return null;
+
         card.DeckId = deckId;
+        card.CreatedAt = DateTime.Now;
         _context.Cards.Add(card);
-        return _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
+
+        return card;
     }
 
     public async Task<Card?> UpdateCardAsync(int deckId, int cardId, Card card)
