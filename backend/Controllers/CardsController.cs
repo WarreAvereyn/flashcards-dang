@@ -19,6 +19,10 @@ public class CardsController : ControllerBase
     public async Task<IActionResult> GetAll(int deckId)
     {
         var cards = await _cardService.GetAllCardsAsync(deckId);
+        
+        if (cards == null)
+            return NotFound();
+
         return Ok(cards);
     }
 
@@ -52,6 +56,11 @@ public class CardsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int deckId, int id, [FromBody] Card card)
     {
+        if (card == null)
+        {
+            return BadRequest();
+        }
+
         var updated = await _cardService.UpdateCardAsync(deckId, id, card);
 
         if (updated == null)
@@ -59,5 +68,4 @@ public class CardsController : ControllerBase
 
         return Ok(updated);
     }
-
 }

@@ -7,7 +7,7 @@ namespace backend.Services;
 
 public interface ICardService
 {
-    Task<List<Card>> GetAllCardsAsync(int deckId);
+    Task<List<Card>?> GetAllCardsAsync(int deckId);
     Task<Card?> GetCardAsync(int deckId, int cardId);
     Task<Card?> CreateCardAsync(int deckId, Card card);
     Task<Card?> UpdateCardAsync(int deckId, int cardId, Card card);
@@ -22,8 +22,12 @@ public class CardService : ICardService
         _context = context;
     }
 
-    public async Task<List<Card>> GetAllCardsAsync(int deckId)
+    public async Task<List<Card>?> GetAllCardsAsync(int deckId)
     {
+        var deckExists = await _context.Decks.AnyAsync(d => d.Id == deckId);
+        if (!deckExists)
+            return null;
+            
         var cards =  await _context.Cards.Where(c => c.DeckId == deckId).ToListAsync();
         return cards;
     }
