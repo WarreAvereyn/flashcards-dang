@@ -19,7 +19,7 @@ public class CardsController : ControllerBase
     public async Task<IActionResult> GetAll(int deckId)
     {
         var cards = await _cardService.GetAllCardsAsync(deckId);
-        
+
         if (cards == null)
             return NotFound();
 
@@ -67,5 +67,16 @@ public class CardsController : ControllerBase
             return NotFound();
 
         return Ok(updated);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int deckId, int id)
+    {
+        var deleted = await _cardService.DeleteCardAsync(deckId, id);
+
+        if (deleted == null)
+            return NotFound();
+
+        return NoContent();
     }
 }

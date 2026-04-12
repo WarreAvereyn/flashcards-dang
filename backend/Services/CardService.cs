@@ -11,6 +11,7 @@ public interface ICardService
     Task<Card?> GetCardAsync(int deckId, int cardId);
     Task<Card?> CreateCardAsync(int deckId, Card card);
     Task<Card?> UpdateCardAsync(int deckId, int cardId, Card card);
+    Task<Card?> DeleteCardAsync(int deckId, int cardId);
 }
 
 public class CardService : ICardService
@@ -27,7 +28,7 @@ public class CardService : ICardService
         var deckExists = await _context.Decks.AnyAsync(d => d.Id == deckId);
         if (!deckExists)
             return null;
-            
+
         var cards =  await _context.Cards.Where(c => c.DeckId == deckId).ToListAsync();
         return cards;
     }
@@ -60,11 +61,32 @@ public class CardService : ICardService
         if (existingCard == null)
             return null;
 
+        if (card.DeckId != deckId)
+        {
+            var targetDeckExists = await _context.Decks.AnyAsync(d => d.Id == card.DeckId);
+            if (!targetDeckExists)
+                return null;
+        }
+
         existingCard.DeckId = card.DeckId;
         existingCard.Front = card.Front;
         existingCard.Back = card.Back;
         existingCard.UpdatedAt = DateTime.Now;
 
+        await _context.SaveChangesAsync();
+
+        return existingCard;
+    }
+
+    public async Task<Card?> DeleteCardAsync(int deckId, int cardId)
+    {
+        var existingCard = await _context.Cards
+            .FirstOrDefaultAsync(c => c.DeckId == deckId && c.Id == cardId);
+
+        if (existingCard == null)
+            return null;
+
+        _context.Cards.Remove(existingCard);
         await _context.SaveChangesAsync();
 
         return existingCard;
