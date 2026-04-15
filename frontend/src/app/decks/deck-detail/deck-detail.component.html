@@ -1,0 +1,69 @@
+@if (error) {
+  <p class="text-red-600 mb-4">{{ error }}</p>
+}
+
+@if (deck) {
+  <div class="mb-6">
+    <div class="flex items-start justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">{{ deck.name }}</h1>
+        @if (deck.description) {
+          <p class="text-gray-500 mt-1">{{ deck.description }}</p>
+        }
+      </div>
+      <div class="flex gap-2 flex-shrink-0 ml-4">
+        <a [routerLink]="['/decks', deck.id, 'study']"
+           class="bg-indigo-600 text-white px-4 py-2 rounded text-sm font-medium hover:bg-indigo-700">
+          Study
+        </a>
+        <a [routerLink]="['/decks', deck.id, 'edit']"
+           class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded text-sm font-medium hover:bg-yellow-200">
+          Edit
+        </a>
+        <button (click)="deleteDeck()"
+                class="bg-red-100 text-red-700 px-4 py-2 rounded text-sm font-medium hover:bg-red-200">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-lg font-semibold text-gray-700">Cards ({{ cards.length }})</h2>
+    <a [routerLink]="['/decks', deck.id, 'cards', 'new']"
+       class="bg-indigo-600 text-white px-3 py-1.5 rounded text-sm font-medium hover:bg-indigo-700">
+      + Add Card
+    </a>
+  </div>
+
+  @if (cards.length === 0) {
+    <p class="text-gray-500">No cards yet. Add one to get started!</p>
+  } @else {
+    <div class="flex flex-col gap-3">
+      @for (card of cards; track card.id) {
+        <div class="bg-white border border-gray-100 rounded-xl shadow-sm p-4 flex items-center gap-4">
+          <div class="flex-1 grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-xs text-gray-400 font-medium uppercase mb-1">Front</p>
+              <p class="text-gray-800 text-sm">{{ card.front }}</p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-400 font-medium uppercase mb-1">Back</p>
+              <p class="text-gray-800 text-sm">{{ card.back }}</p>
+            </div>
+          </div>
+          <div class="flex gap-2 flex-shrink-0">
+            <a [routerLink]="['/decks', deck.id, 'cards', card.id, 'edit']"
+               class="text-sm bg-yellow-100 text-yellow-700 px-3 py-1 rounded hover:bg-yellow-200">
+              Edit
+            </a>
+            <button (click)="deleteCard(card.id)"
+                    class="text-sm bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200">
+              Delete
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+}
