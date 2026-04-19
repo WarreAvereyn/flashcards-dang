@@ -61,14 +61,16 @@ public class CardService : ICardService
         if (existingCard == null)
             return null;
 
-        if (card.DeckId != deckId)
+        var targetDeckId = card.DeckId != 0 ? card.DeckId : deckId;
+
+        if (targetDeckId != deckId)
         {
-            var targetDeckExists = await _context.Decks.AnyAsync(d => d.Id == card.DeckId);
+            var targetDeckExists = await _context.Decks.AnyAsync(d => d.Id == targetDeckId);
             if (!targetDeckExists)
                 return null;
         }
 
-        existingCard.DeckId = card.DeckId;
+        existingCard.DeckId = targetDeckId;
         existingCard.Front = card.Front;
         existingCard.Back = card.Back;
         existingCard.UpdatedAt = DateTime.UtcNow;
