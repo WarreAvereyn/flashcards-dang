@@ -28,15 +28,23 @@ export class CardFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.deckId = +this.route.snapshot.paramMap.get('id')!;
+   console.log('ngOnInit ran, deckId:', this.deckId); // ← did it even run? is deckId valid?
+ 
     const cardId = this.route.snapshot.paramMap.get('cardId');
+    console.log('cardId from route:', cardId); // ← is the param being read?
+
     if (cardId) {
       this.cardId = +cardId;
       this.cardService.getById(this.deckId, this.cardId).subscribe({
         next: card => {
+          console.log('card loaded:', card); // ← did next() fire?
           this.front = card.front;
           this.back = card.back;
         },
-        error: () => (this.error = 'Failed to load card.'),
+        error: () => {
+          console.log('Failed to load card.'); // ← did error() fire?
+          this.error = 'Failed to load card.';
+        },
       });
     }
   }
