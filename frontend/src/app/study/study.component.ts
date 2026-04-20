@@ -87,20 +87,25 @@ export class StudyComponent implements OnInit {
     } 
     // First attempt
     if (this.currentIndex < this.numberOfCards) {
-      if (text.trim() === this.current?.back) {
+      if (text.trim().toLowerCase() === this.current?.back.trim().toLowerCase()) {
         this.correctAnswers.push(this.current!);
         this.feedbackState = 'correct';
+        setTimeout(() => { this.feedbackState = null; this.next(); }, 1000);
       } 
       else {
         this.wrongAnswers.push(this.current!);
-        this.cards.push(this.current!);
+        const card = this.current!;
         this.feedbackState = 'wrong-first';
+        setTimeout(() => {
+          this.cards.push(card);
+          this.feedbackState = null; 
+          this.next(); 
+        }, 1000);
       }
-      setTimeout(() => { this.feedbackState = null; this.next(); }, 1000);
     }
     // Second attempt
     else{
-      if (text.trim() !== this.current?.back) {
+      if (text.trim().toLowerCase() !== this.current?.back.trim().toLowerCase()) {
         this.wrongAnswers.push(this.current!);
         this.feedbackState = 'wrong-final';
         this.next();
