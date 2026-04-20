@@ -66,14 +66,6 @@ export class StudyComponent implements OnInit {
     }
   }
 
-  prev(): void {
-    this.feedbackState = null;
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      this.flipped = false;
-    }
-  }
-
   restart(): void {
     this.feedbackState = null;
     this.currentIndex = 0;
