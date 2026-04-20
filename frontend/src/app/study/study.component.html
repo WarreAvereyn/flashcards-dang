@@ -39,9 +39,23 @@
 
       <!-- Flashcard -->
       <div (click)="flip()"
-           class="cursor-pointer bg-white rounded-2xl shadow-lg border border-gray-100 min-h-56
+          class="relative cursor-pointer bg-white rounded-2xl shadow-lg border-2 min-h-56
                   flex items-center justify-center p-8 text-center select-none
-                  hover:shadow-xl transition-shadow">
+                  hover:shadow-xl transition-all duration-300"
+          [class.border-gray-100]="!feedbackState"
+          [class.border-green-400]="feedbackState === 'correct'"
+          [class.border-yellow-400]="feedbackState === 'wrong-first'"
+          [class.border-red-500]="feedbackState === 'wrong-final'">
+        @if (feedbackState) {
+          <div class="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold shadow"
+              [class.bg-green-500]="feedbackState === 'correct'"
+              [class.bg-yellow-500]="feedbackState === 'wrong-first'"
+              [class.bg-red-500]="feedbackState === 'wrong-final'">
+            @if (feedbackState === 'correct') {✓}
+            @else if (feedbackState === 'wrong-first') {!}
+            @else {✗}
+          </div>
+        }
         <div>
           <p class="text-xs uppercase tracking-widest text-gray-400 mb-3">
             {{ flipped ? 'Answer' : 'Question' }}

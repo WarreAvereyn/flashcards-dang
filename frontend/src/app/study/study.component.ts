@@ -17,6 +17,10 @@ export class StudyComponent implements OnInit {
   flipped = false;
   error = '';
   done = false;
+  numberOfCards = 0;
+  correctAnswers: Card[] = [];
+  wrongAnswers: Card[] = [];
+  feedbackState: 'correct' | 'wrong-first' | 'wrong-final' | null = null;
 
   get current(): Card | null {
     return this.cards[this.currentIndex] ?? null;
@@ -41,6 +45,7 @@ export class StudyComponent implements OnInit {
     this.cardService.getAll(deckId).subscribe({
       next: cards => {
         this.cards = cards;
+        this.numberOfCards = cards.length;
         if (cards.length === 0) this.done = true;
       },
       error: () => (this.error = 'Failed to load cards.'),
@@ -52,6 +57,7 @@ export class StudyComponent implements OnInit {
   }
 
   next(): void {
+    this.feedbackState = null;
     if (this.currentIndex < this.cards.length - 1) {
       this.currentIndex++;
       this.flipped = false;
@@ -61,6 +67,7 @@ export class StudyComponent implements OnInit {
   }
 
   prev(): void {
+    this.feedbackState = null;
     if (this.currentIndex > 0) {
       this.currentIndex--;
       this.flipped = false;
@@ -68,18 +75,43 @@ export class StudyComponent implements OnInit {
   }
 
   restart(): void {
+    this.feedbackState = null;
     this.currentIndex = 0;
     this.flipped = false;
     this.done = false;
   }
 
   submit(text: string): void {
-    if (text === this.current?.back) {
-      alert('Correct!');
-    } else {
-      alert(`Incorrect! The correct answer was: ${this.current?.back}`);
+    if (text === '' || text === null) {
+      return;
+    } 
+    // First attempt
+    if (this.currentIndex < this.numberOfCards) {
+      if (text.trim() === this.current?.back) {
+        this.correctAnswers.push(this.current!);
+        this.feedbackState = 'correct';
+      } 
+      else {
+        this.wrongAnswers.push(this.current!);
+        this.cards.push(this.current!);
+        this.feedbackState = 'wrong-first';
+      }
+      setTimeout(() => { this.feedbackState = null; this.next(); }, 1000);
     }
-    this.next();
+    // Second attempt
+    else{
+      if (text.trim() !== this.current?.back) {
+        this.wrongAnswers.push(this.current!);
+        this.feedbackState = 'wrong-final';
+        this.next();
+      }
+      else {
+        this.correctAnswers.push(this.current!);
+        this.feedbackState = 'correct';
+        this.next();
+      }
+      setTimeout(() => { this.feedbackState = null; this.next(); }, 1000);
+    }
   }
 
   @ViewChild('answerInput') answerInput!: ElementRef<HTMLInputElement>;
