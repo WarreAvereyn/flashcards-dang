@@ -1,30 +1,42 @@
 <div class="max-w-lg">
-  <h1 class="text-2xl font-bold text-gray-800 mb-6">{{ isEdit ? 'Edit Deck' : 'New Deck' }}</h1>
+  <h1 class="text-2xl font-bold text-cinnamon-wood-800 dark:text-papaya-whip-200 mb-6">{{ isEdit ? 'Edit Deck' : 'New Deck' }}</h1>
 
   @if (error) {
-    <p class="text-red-600 mb-4">{{ error }}</p>
+    <p class="text-red-600 dark:text-red-400 mb-4">{{ error }}</p>
   }
 
   <form (ngSubmit)="submit()" class="flex flex-col gap-4">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+      <label class="block text-sm font-medium text-cinnamon-wood-700 dark:text-papaya-whip-300 mb-1">Name *</label>
       <input [(ngModel)]="name" name="name" type="text" required
-             class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+             class="w-full border-2 border-papaya-whip-300 dark:border-cinnamon-wood-600 px-3 py-2 text-sm
+                    bg-white dark:bg-cinnamon-wood-900 text-cinnamon-wood-800 dark:text-papaya-whip-100
+                    placeholder:text-cinnamon-wood-300 dark:placeholder:text-cinnamon-wood-500
+                    focus:outline-none focus:border-peach-glow-500 dark:focus:border-peach-glow-400 transition-colors"
              placeholder="e.g. Spanish Vocabulary" />
     </div>
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+      <label class="block text-sm font-medium text-cinnamon-wood-700 dark:text-papaya-whip-300 mb-1">Description</label>
       <textarea [(ngModel)]="description" name="description" rows="3"
-                class="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                class="w-full border-2 border-papaya-whip-300 dark:border-cinnamon-wood-600 px-3 py-2 text-sm
+                       bg-white dark:bg-cinnamon-wood-900 text-cinnamon-wood-800 dark:text-papaya-whip-100
+                       placeholder:text-cinnamon-wood-300 dark:placeholder:text-cinnamon-wood-500
+                       focus:outline-none focus:border-peach-glow-500 dark:focus:border-peach-glow-400 transition-colors"
                 placeholder="Optional description"></textarea>
     </div>
     <div class="flex gap-3 mt-2">
       <button type="submit" [disabled]="submitting"
-              class="bg-indigo-600 text-white px-5 py-2 rounded hover:bg-indigo-700 text-sm font-medium disabled:opacity-50">
+              class="px-5 py-2 text-sm font-medium disabled:opacity-50
+                     bg-peach-glow-500 text-white
+                     border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
+              shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
         {{ isEdit ? 'Save Changes' : 'Create Deck' }}
       </button>
       <a routerLink="/decks"
-         class="px-5 py-2 rounded border border-gray-300 text-sm text-gray-600 hover:bg-gray-50">
+         class="px-5 py-2 text-sm font-medium
+                border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
+                text-cinnamon-wood-600 dark:text-papaya-whip-300
+               shadow-neo-sm hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
         Cancel
       </a>
     </div>

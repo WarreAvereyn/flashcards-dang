@@ -1,5 +1,6 @@
 import { Component, OnInit,  ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
 import { CardService } from '../services/card.service';
 import { DeckService } from '../services/deck.service';
 import { Card } from '../models/card.model';
@@ -7,7 +8,7 @@ import { Deck } from '../models/deck.model';
 
 @Component({
   selector: 'app-study',
-  imports: [RouterLink],
+  imports: [RouterLink, NgClass],
   templateUrl: './study.component.html',
 })
 export class StudyComponent implements OnInit {
@@ -21,6 +22,13 @@ export class StudyComponent implements OnInit {
   correctAnswers: Card[] = [];
   wrongAnswers: Card[] = [];
   feedbackState: 'correct' | 'wrong-first' | 'wrong-final' | null = null;
+
+  get cardFeedbackClasses(): string {
+    if (this.feedbackState === 'correct') return 'border-green-400 shadow-neo-correct';
+    if (this.feedbackState === 'wrong-first') return 'border-yellow-400 shadow-neo-warn';
+    if (this.feedbackState === 'wrong-final') return 'border-red-500 shadow-neo-error';
+    return 'border-cinnamon-wood-300 dark:border-cinnamon-wood-600 shadow-neo-lg';
+  }
 
   get current(): Card | null {
     return this.cards[this.currentIndex] ?? null;

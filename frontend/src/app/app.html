@@ -1,6 +1,10 @@
-<nav class="bg-indigo-600 text-white px-6 py-3 flex items-center gap-6 shadow">
-  <a routerLink="/decks" class="text-lg font-bold tracking-wide hover:text-indigo-200">Flashcards</a>
-  <a routerLink="/decks" class="text-sm hover:text-indigo-200">My Decks</a>
+<nav class="bg-cinnamon-wood-800 dark:bg-cinnamon-wood-950 text-papaya-whip-100 px-6 py-4 flex items-center gap-6 shadow-neo-bottom">
+  <a routerLink="/decks" class="text-lg font-bold tracking-wide hover:text-papaya-whip-400 transition-colors">Flashcards</a>
+  <a routerLink="/decks" class="text-sm text-papaya-whip-300 hover:text-papaya-whip-400 transition-colors">My Decks</a>
+  <button (click)="toggleDark()"
+    class="ml-auto text-sm px-3 py-1 border-2 border-papaya-whip-300 dark:border-papaya-whip-400 text-papaya-whip-200 dark:text-papaya-whip-300 shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100">
+    {{ darkMode ? '☀ Light' : '☾ Dark' }}
+  </button>
 </nav>
 
 <main class="max-w-5xl mx-auto px-4 py-8">

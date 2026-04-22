@@ -1,41 +1,57 @@
 <div class="flex items-center justify-between mb-6">
-  <h1 class="text-2xl font-bold text-gray-800">My Decks</h1>
+  <h1 class="text-2xl font-bold text-cinnamon-wood-800 dark:text-papaya-whip-200">My Decks</h1>
   <a routerLink="/decks/new"
-     class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 text-sm font-medium">
+     class="bg-peach-glow-500 text-white px-4 py-2 text-sm font-medium
+            border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
+            shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
     + New Deck
   </a>
 </div>
 
 @if (error) {
-  <p class="text-red-600 mb-4">{{ error }}</p>
+  <p class="text-red-600 dark:text-red-400 mb-4">{{ error }}</p>
 }
 
 @if (decks.length === 0 && !error) {
-  <p class="text-gray-500">No decks yet. Create one to get started!</p>
+  <p class="text-jet-black-600 dark:text-papaya-whip-300">No decks yet. Create one to get started!</p>
 }
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
   @for (deck of decks; track deck.id) {
-    <div class="bg-white rounded-xl shadow p-5 flex flex-col gap-3 border border-gray-100">
+    <div class="bg-white dark:bg-cinnamon-wood-900 flex flex-col gap-3 p-5
+                border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
+                shadow-neo-lg">
       <div>
-        <h2 class="text-lg font-semibold text-gray-800">{{ deck.name }}</h2>
-        <p class="text-sm text-gray-500 mt-1">{{ deck.description }}</p>
+        <h2 class="text-lg font-semibold text-cinnamon-wood-800 dark:text-papaya-whip-200">{{ deck.name }}</h2>
+        <p class="text-sm text-jet-black-600 dark:text-papaya-whip-400 mt-1">{{ deck.description }}</p>
       </div>
       <div class="flex gap-2 mt-auto">
         <a [routerLink]="['/decks', deck.id]"
-           class="flex-1 text-center text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded">
+           class="flex-1 text-center text-sm px-3 py-1.5 font-medium
+                  bg-papaya-whip-100 dark:bg-cinnamon-wood-800 text-cinnamon-wood-700 dark:text-papaya-whip-200
+                  border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
+                  shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100">
           View
         </a>
         <a [routerLink]="['/decks', deck.id, 'study']"
-           class="flex-1 text-center text-sm bg-indigo-100 hover:bg-indigo-200 text-indigo-700 px-3 py-1.5 rounded">
+           class="flex-1 text-center text-sm px-3 py-1.5 font-medium
+                  bg-papaya-whip-500 text-cinnamon-wood-900
+                  border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
+                  shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100">
           Study
         </a>
         <a [routerLink]="['/decks', deck.id, 'edit']"
-           class="flex-1 text-center text-sm bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-3 py-1.5 rounded">
+           class="flex-1 text-center text-sm px-3 py-1.5 font-medium
+                  bg-papaya-whip-200 dark:bg-cinnamon-wood-700 text-cinnamon-wood-700 dark:text-papaya-whip-100
+                  border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
+                  shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100">
           Edit
         </a>
         <button (click)="delete(deck.id)"
-                class="flex-1 text-center text-sm bg-red-100 hover:bg-red-200 text-red-700 px-3 py-1.5 rounded">
+                class="flex-1 text-center text-sm px-3 py-1.5 font-medium
+                       bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300
+                       border-2 border-red-300 dark:border-red-800
+                       shadow-neo-error-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100">
           Delete
         </button>
       </div>

@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background-color: #fdf6e7; /* papaya-whip-50 */
+  color: #283c3e; /* jet-black-800 */
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.dark body {
+  background-color: #1b0f09; /* cinnamon-wood-950 */
+  color: #fbecd0; /* papaya-whip-100 */
+}
