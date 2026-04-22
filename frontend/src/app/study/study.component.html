@@ -41,7 +41,8 @@
       </div>
 
       <!-- Flashcard -->
-      <div class="relative bg-white dark:bg-cinnamon-wood-900 min-h-56
+      <div  (click)="flipClick()" 
+           class="cursor-pointer relative bg-white dark:bg-cinnamon-wood-900 min-h-56
                   flex items-center justify-center p-8 text-center select-none
                   border-2 transition-all duration-300"
            [ngClass]="cardFeedbackClasses">
@@ -85,7 +86,7 @@
       <div class="flex justify-center mt-4 gap-2">
         <form class="flex gap-2">
           @for (ch of ['ã','ç','õ','á','é']; track ch) {
-            <button (click)="insert_character(ch)" type="button"
+            <button (click)="insertCharacter(ch)" type="button"
                     class="px-4 py-1.5 text-sm font-medium
                            bg-papaya-whip-200 dark:bg-cinnamon-wood-800 text-cinnamon-wood-700 dark:text-papaya-whip-200
                            border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600

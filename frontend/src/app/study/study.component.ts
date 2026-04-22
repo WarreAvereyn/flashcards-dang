@@ -91,38 +91,44 @@ export class StudyComponent implements OnInit {
     // First attempt
     if (this.currentIndex < this.numberOfCards) {
       if (text.trim().toLowerCase() === this.current?.back.trim().toLowerCase()) {
-        this.correctAnswers.push(this.current!);
-        this.feedbackState = 'correct';
-        setTimeout(() => { this.feedbackState = null; this.next(); }, 1000);
+        this.markCorrect();
       } 
       else {
-        this.wrongAnswers.push(this.current!);
-        const card = this.current!;
-        this.feedbackState = 'wrong-first';
-        setTimeout(() => {
-          this.cards.push(card);
-          this.feedbackState = null; 
-          this.next(); 
-        }, 1000);
+        this.markWrong(1);
       }
     }
     // Second attempt
     else{
-      if (text.trim().toLowerCase() !== this.current?.back.trim().toLowerCase()) {
-        this.wrongAnswers.push(this.current!);
-        this.feedbackState = 'wrong-final';
-      }
-      else {
-        this.correctAnswers.push(this.current!);
-        this.feedbackState = 'correct';
-      }
-      setTimeout(() => { this.feedbackState = null; this.next(); }, 1000);
+      this.markWrong(2);
     }
+  }
+
+  markCorrect(): void {
+    this.correctAnswers.push(this.current!);
+    this.feedbackState = 'correct';
+    this.flip();
+    setTimeout(() => { this.feedbackState = null; this.next(); }, 1500);
+  }
+
+  markWrong(attempt: number): void {
+    this.wrongAnswers.push(this.current!);
+    const card = this.current!;
+    this.feedbackState = attempt === 1 ? 'wrong-first' : 'wrong-final';
+    this.flip();
+    setTimeout(() => {
+      if (attempt === 1) this.cards.push(card);
+      this.feedbackState = null; 
+      this.next(); 
+    }, 1500);
+  }    
+
+  flipClick(): void {
+    this.currentIndex < this.numberOfCards ? this.markWrong(1) : this.markWrong(2);
   }
 
   @ViewChild('answerInput') answerInput!: ElementRef<HTMLInputElement>;
 
-  insert_character(char: string): void {
+  insertCharacter(char: string): void {
     const input = this.answerInput.nativeElement;
     const start = input.selectionStart ?? input.value.length;
     const end = input.selectionEnd ?? input.value.length;
