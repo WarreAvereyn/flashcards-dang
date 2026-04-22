@@ -50,9 +50,9 @@
               [class.bg-green-500]="feedbackState === 'correct'"
               [class.bg-yellow-500]="feedbackState === 'wrong-first'"
               [class.bg-red-500]="feedbackState === 'wrong-final'">
-            @if (feedbackState === 'correct') {✓}
+            @if (feedbackState === 'correct') {✔}
             @else if (feedbackState === 'wrong-first') {!}
-            @else {✗}
+            @else {𐄂}
           </div>
         }
         <div>

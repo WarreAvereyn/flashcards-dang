@@ -108,12 +108,10 @@ export class StudyComponent implements OnInit {
       if (text.trim().toLowerCase() !== this.current?.back.trim().toLowerCase()) {
         this.wrongAnswers.push(this.current!);
         this.feedbackState = 'wrong-final';
-        this.next();
       }
       else {
         this.correctAnswers.push(this.current!);
         this.feedbackState = 'correct';
-        this.next();
       }
       setTimeout(() => { this.feedbackState = null; this.next(); }, 1000);
     }
