@@ -29,7 +29,7 @@ public class CardService : ICardService
         if (!deckExists)
             return null;
 
-        var cards =  await _context.Cards.Where(c => c.DeckId == deckId).ToListAsync();
+        var cards =  await _context.Cards.Where(c => c.DeckId == deckId).OrderBy(c => c.CreatedAt).ToListAsync();
         return cards;
     }
 

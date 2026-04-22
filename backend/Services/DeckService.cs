@@ -25,7 +25,7 @@ public class DeckService : IDeckService
 
     public async Task<List<Deck>> GetAllDecksAsync()
     {
-        var decks =  await _context.Decks.ToListAsync();
+        var decks =  await _context.Decks.OrderBy(d => d.CreatedAt).ToListAsync();
 
         return decks;
     }
