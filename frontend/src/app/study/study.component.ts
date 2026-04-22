@@ -79,6 +79,9 @@ export class StudyComponent implements OnInit {
     this.currentIndex = 0;
     this.flipped = false;
     this.done = false;
+    this.correctAnswers = [];
+    this.wrongAnswers = [];
+    this.cards = this.cards.slice(0, this.numberOfCards);
   }
 
   submit(text: string): void {
