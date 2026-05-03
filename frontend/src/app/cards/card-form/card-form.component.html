@@ -1,44 +1,38 @@
 <div class="max-w-lg">
-  <h1 class="text-2xl font-bold text-cinnamon-wood-800 dark:text-papaya-whip-200 mb-6">{{ isEdit ? 'Edit Card' : 'Add Card' }}</h1>
+  <h1 class="page-title mb-6">{{ isEdit ? 'Edit Card' : 'Add Card' }}</h1>
 
   @if (error) {
-    <p class="text-red-600 dark:text-red-400 mb-4">{{ error }}</p>
+    <p class="text-error">{{ error }}</p>
   }
 
   <form (ngSubmit)="submit()" class="flex flex-col gap-4">
     <div>
-      <label class="block text-sm font-medium text-cinnamon-wood-700 dark:text-papaya-whip-300 mb-1">Front *</label>
-      <textarea [(ngModel)]="front" name="front" rows="3" required
-                class="w-full border-2 border-papaya-whip-300 dark:border-cinnamon-wood-600 px-3 py-2 text-sm
-                       bg-white dark:bg-cinnamon-wood-900 text-cinnamon-wood-800 dark:text-papaya-whip-100
-                       placeholder:text-cinnamon-wood-300 dark:placeholder:text-cinnamon-wood-500
-                       focus:outline-none focus:border-peach-glow-500 dark:focus:border-peach-glow-400 transition-colors"
-                placeholder="Question or term"></textarea>
+      <label class="label">Front *</label>
+      <textarea
+        [(ngModel)]="front"
+        name="front"
+        rows="3"
+        required
+        class="input"
+        placeholder="Question or term"
+      ></textarea>
     </div>
     <div>
-      <label class="block text-sm font-medium text-cinnamon-wood-700 dark:text-papaya-whip-300 mb-1">Back *</label>
-      <textarea [(ngModel)]="back" name="back" rows="3" required
-                class="w-full border-2 border-papaya-whip-300 dark:border-cinnamon-wood-600 px-3 py-2 text-sm
-                       bg-white dark:bg-cinnamon-wood-900 text-cinnamon-wood-800 dark:text-papaya-whip-100
-                       placeholder:text-cinnamon-wood-300 dark:placeholder:text-cinnamon-wood-500
-                       focus:outline-none focus:border-peach-glow-500 dark:focus:border-peach-glow-400 transition-colors"
-                placeholder="Answer or definition"></textarea>
+      <label class="label">Back *</label>
+      <textarea
+        [(ngModel)]="back"
+        name="back"
+        rows="3"
+        required
+        class="input"
+        placeholder="Answer or definition"
+      ></textarea>
     </div>
     <div class="flex gap-3 mt-2">
-      <button type="submit" [disabled]="submitting"
-              class="px-5 py-2 text-sm font-medium disabled:opacity-50
-                     bg-peach-glow-500 text-white
-                     border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
-                     shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
+      <button type="submit" [disabled]="submitting" class="btn-primary">
         {{ isEdit ? 'Save Changes' : 'Add Card' }}
       </button>
-      <a [routerLink]="['/decks', deckId]"
-         class="px-5 py-2 text-sm font-medium
-                border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
-                text-cinnamon-wood-600 dark:text-papaya-whip-300
-                shadow-neo-sm hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
-        Cancel
-      </a>
+      <a [routerLink]="['/decks', deckId]" class="btn-secondary"> Cancel </a>
     </div>
   </form>
 </div>

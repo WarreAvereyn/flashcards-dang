@@ -1,86 +1,54 @@
 @if (error) {
-  <p class="text-red-600 dark:text-red-400 mb-4">{{ error }}</p>
+  <p class="text-error">{{ error }}</p>
 }
 
 @if (deck) {
   <div class="mb-6">
     <div class="flex items-start justify-between">
       <div>
-        <h1 class="text-2xl font-bold text-cinnamon-wood-800 dark:text-papaya-whip-200">{{ deck.name }}</h1>
+        <h1 class="page-title">{{ deck.name }}</h1>
         @if (deck.description) {
-          <p class="text-jet-black-600 dark:text-papaya-whip-400 mt-1">{{ deck.description }}</p>
+          <p class="text-body mt-1">{{ deck.description }}</p>
         }
       </div>
       <div class="flex gap-2 flex-shrink-0 ml-4">
-        <a [routerLink]="['/decks', deck.id, 'study']"
-           class="px-4 py-2 text-sm font-medium
-                  bg-papaya-whip-500 text-cinnamon-wood-900
-                  border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
-                  shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
-          Study
-        </a>
-        <a [routerLink]="['/decks', deck.id, 'edit']"
-           class="px-4 py-2 text-sm font-medium
-                  bg-papaya-whip-200 dark:bg-cinnamon-wood-700 text-cinnamon-wood-700 dark:text-papaya-whip-100
-                  border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
-                  shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
-          Edit
-        </a>
-        <button (click)="deleteDeck()"
-                class="px-4 py-2 text-sm font-medium
-                       bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300
-                       border-2 border-red-300 dark:border-red-800
-                       shadow-neo-error hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
-          Delete
-        </button>
+        <a [routerLink]="['/decks', deck.id, 'study']" class="btn-study-lg"> Study </a>
+        <a [routerLink]="['/decks', deck.id, 'edit']" class="btn-edit"> Edit </a>
+        <button (click)="deleteDeck()" class="btn-delete-lg">Delete</button>
       </div>
     </div>
   </div>
 
   <div class="flex items-center justify-between mb-4">
-    <h2 class="text-lg font-semibold text-cinnamon-wood-700 dark:text-papaya-whip-300">Cards ({{ cards.length }})</h2>
-    <a [routerLink]="['/decks', deck.id, 'cards', 'new']"
-       class="px-3 py-1.5 text-sm font-medium
-              bg-peach-glow-500 text-white
-              border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
-              shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
-      + Add Card
-    </a>
+    <h2 class="section-title">Cards ({{ cards.length }})</h2>
+    <a [routerLink]="['/decks', deck.id, 'cards', 'new']" class="btn-primary"> + Add Card </a>
   </div>
 
   @if (cards.length === 0) {
-    <p class="text-jet-black-600 dark:text-papaya-whip-400">No cards yet. Add one to get started!</p>
+    <p class="text-body">No cards yet. Add one to get started!</p>
   } @else {
     <div class="flex flex-col gap-3">
       @for (card of cards; track card.id) {
-        <div class="bg-white dark:bg-cinnamon-wood-900 p-4 flex items-center gap-4
-                    border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
-                    shadow-neo-lg">
+        <div class="card-row">
           <div class="flex-1 grid grid-cols-2 gap-4">
             <div>
-              <p class="text-xs text-cinnamon-wood-400 dark:text-cinnamon-wood-300 font-semibold uppercase mb-1 tracking-wide">Front</p>
-              <p class="text-cinnamon-wood-800 dark:text-papaya-whip-200 text-sm">{{ card.front }}</p>
+              <p class="card-label">Front</p>
+              <p class="text-cinnamon-wood-800 dark:text-papaya-whip-200 text-sm">
+                {{ card.front }}
+              </p>
             </div>
             <div>
-              <p class="text-xs text-cinnamon-wood-400 dark:text-cinnamon-wood-300 font-semibold uppercase mb-1 tracking-wide">Back</p>
-              <p class="text-cinnamon-wood-800 dark:text-papaya-whip-200 text-sm">{{ card.back }}</p>
+              <p class="card-label">Back</p>
+              <p class="text-cinnamon-wood-800 dark:text-papaya-whip-200 text-sm">
+                {{ card.back }}
+              </p>
             </div>
           </div>
           <div class="flex gap-2 flex-shrink-0">
-            <a [routerLink]="['/decks', deck.id, 'cards', card.id, 'edit']"
-               class="text-sm px-3 py-1 font-medium
-                      bg-papaya-whip-200 dark:bg-cinnamon-wood-700 text-cinnamon-wood-700 dark:text-papaya-whip-100
-                      border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
-                       shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100">
+            <a [routerLink]="['/decks', deck.id, 'cards', card.id, 'edit']" class="btn-edit">
               Edit
             </a>
-            <button (click)="deleteCard(card.id)"
-                    class="text-sm px-3 py-1 font-medium
-                           bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300
-                           border-2 border-red-300 dark:border-red-800
-                           shadow-neo-error-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100">
-              Delete
-            </button>
+            <button (click)="deleteCard(card.id)" class="btn-delete">Delete</button>
           </div>
         </div>
       }

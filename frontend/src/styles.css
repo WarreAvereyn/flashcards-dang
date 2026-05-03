@@ -57,6 +57,17 @@
            border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
            shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100;
   }
+  .btn-study-lg {
+    @apply px-4 py-2 text-sm font-medium bg-papaya-whip-500 text-cinnamon-wood-900
+           border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
+           shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100;
+  }
+  .btn-view {
+    @apply px-3 py-1.5 text-sm font-medium
+           bg-papaya-whip-100 dark:bg-cinnamon-wood-800 text-cinnamon-wood-700 dark:text-papaya-whip-200
+           border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
+           shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100;
+  }
   .btn-edit {
     @apply px-3 py-1.5 text-sm font-medium
            bg-papaya-whip-200 dark:bg-cinnamon-wood-700 text-cinnamon-wood-700 dark:text-papaya-whip-100

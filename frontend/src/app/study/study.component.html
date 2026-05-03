@@ -1,31 +1,24 @@
 @if (error) {
-  <p class="text-red-600 dark:text-red-400 mb-4">{{ error }}</p>
+  <p class="text-error">{{ error }}</p>
 }
 
 @if (deck) {
   <div class="max-w-xl mx-auto">
     <div class="flex items-center justify-between mb-6">
       <div>
-        <h1 class="text-2xl font-bold text-cinnamon-wood-800 dark:text-papaya-whip-200">{{ deck.name }}</h1>
-        <p class="text-sm text-jet-black-600 dark:text-papaya-whip-400 mt-0.5">Study mode</p>
+        <h1 class="page-title">{{ deck.name }}</h1>
+        <p class="text-sm text-body mt-0.5">Study mode</p>
       </div>
-      <a [routerLink]="['/decks', deck.id]"
-         class="text-sm text-cinnamon-wood-500 dark:text-papaya-whip-400 hover:text-cinnamon-wood-800 dark:hover:text-papaya-whip-200 underline transition-colors">
-        ← Back to deck
-      </a>
+      <a [routerLink]="['/decks', deck.id]" class="link-back"> ← Back to deck </a>
     </div>
 
     @if (done) {
       <div class="text-center py-16">
-        <p class="text-2xl font-semibold text-cinnamon-wood-700 dark:text-papaya-whip-300 mb-2">All done!</p>
-        <p class="text-jet-black-600 dark:text-papaya-whip-400 mb-6">You've gone through all {{ numberOfCards }} cards.</p>
-        <button (click)="restart()"
-                class="px-6 py-2 text-sm font-medium
-                       bg-peach-glow-500 text-white
-                       border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
-                       shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
-          Restart
-        </button>
+        <p class="text-2xl font-semibold text-cinnamon-wood-700 dark:text-papaya-whip-300 mb-2">
+          All done!
+        </p>
+        <p class="text-body mb-6">You've gone through all {{ numberOfCards }} cards.</p>
+        <button (click)="restart()" class="btn-primary">Restart</button>
       </div>
     } @else if (current) {
       <!-- Progress bar -->
@@ -34,30 +27,36 @@
           <span>{{ progress }}</span>
           <span>{{ flipped ? 'Back' : 'Front' }}</span>
         </div>
-        <div class="w-full bg-papaya-whip-200 dark:bg-cinnamon-wood-800 h-2">
-          <div class="bg-papaya-whip-500 dark:bg-papaya-whip-400 h-2 transition-all"
-               [style.width.%]="((currentIndex + 1) / cards.length) * 100"></div>
+        <div class="progress-track">
+          <div
+            class="progress-fill"
+            [style.width.%]="((currentIndex + 1) / cards.length) * 100"
+          ></div>
         </div>
       </div>
 
       <!-- Flashcard -->
-      <div  (click)="flipClick()" 
-           class="cursor-pointer relative bg-white dark:bg-cinnamon-wood-900 min-h-56
-                  flex items-center justify-center p-8 text-center select-none
-                  border-2 transition-all duration-300"
-           [ngClass]="cardFeedbackClasses">
+      <div (click)="flipClick()" class="flashcard" [ngClass]="cardFeedbackClasses">
         @if (feedbackState) {
-          <div class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-white text-sm font-bold"
-              [class.bg-green-500]="feedbackState === 'correct'"
-              [class.bg-yellow-500]="feedbackState === 'wrong-first'"
-              [class.bg-red-500]="feedbackState === 'wrong-final'">
-            @if (feedbackState === 'correct') {✔}
-            @else if (feedbackState === 'wrong-first') {!}
-            @else {𐄂}
+          <div
+            class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center text-white text-sm font-bold"
+            [class.bg-green-500]="feedbackState === 'correct'"
+            [class.bg-yellow-500]="feedbackState === 'wrong-first'"
+            [class.bg-red-500]="feedbackState === 'wrong-final'"
+          >
+            @if (feedbackState === 'correct') {
+              ✔
+            } @else if (feedbackState === 'wrong-first') {
+              !
+            } @else {
+              𐄂
+            }
           </div>
         }
         <div>
-          <p class="text-xl text-cinnamon-wood-800 dark:text-papaya-whip-100 font-medium leading-relaxed">
+          <p
+            class="text-xl text-cinnamon-wood-800 dark:text-papaya-whip-100 font-medium leading-relaxed"
+          >
             {{ flipped ? current.back : current.front }}
           </p>
         </div>
@@ -66,17 +65,17 @@
       <!-- Answer input -->
       <div class="flex justify-center mt-6 gap-2">
         <form class="flex gap-2" (submit)="$event.preventDefault()">
-          <input #answerInput type="text" id="answer" name="answer" placeholder="Your answer" autocomplete="off"
-              class="border-2 border-papaya-whip-300 dark:border-cinnamon-wood-600 px-3 py-1.5
-                     bg-white dark:bg-cinnamon-wood-900 text-cinnamon-wood-800 dark:text-papaya-whip-100
-                     placeholder:text-cinnamon-wood-300 dark:placeholder:text-cinnamon-wood-500
-                     focus:outline-none focus:border-peach-glow-500 dark:focus:border-peach-glow-400 transition-colors"
-              (keyup.enter)="submit(answerInput.value)">
-          <button (click)="submit(answerInput.value)" type="button"
-                  class="px-5 py-2 text-sm font-medium
-                         bg-peach-glow-500 text-white
-                         border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
-                         shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100">
+          <input
+            #answerInput
+            type="text"
+            id="answer"
+            name="answer"
+            placeholder="Your answer"
+            autocomplete="off"
+            class="border-2 border-papaya-whip-300 dark:border-cinnamon-wood-600 px-3 py-1.5 bg-white dark:bg-cinnamon-wood-900 text-cinnamon-wood-800 dark:text-papaya-whip-100 placeholder:text-cinnamon-wood-300 dark:placeholder:text-cinnamon-wood-500 focus:outline-none focus:border-peach-glow-500 dark:focus:border-peach-glow-400 transition-colors"
+            (keyup.enter)="submit(answerInput.value)"
+          />
+          <button (click)="submit(answerInput.value)" type="button" class="btn-primary">
             Submit
           </button>
         </form>
@@ -85,12 +84,8 @@
       <!-- Special character buttons -->
       <div class="flex justify-center mt-4 gap-2">
         <form class="flex gap-2">
-          @for (ch of ['ã','ç','õ','á','é']; track ch) {
-            <button (click)="insertCharacter(ch)" type="button"
-                    class="px-4 py-1.5 text-sm font-medium
-                           bg-papaya-whip-200 dark:bg-cinnamon-wood-800 text-cinnamon-wood-700 dark:text-papaya-whip-200
-                           border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
-                           shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100">
+          @for (ch of ['ã', 'ç', 'õ', 'á', 'é']; track ch) {
+            <button (click)="insertCharacter(ch)" type="button" class="btn-char">
               {{ ch }}
             </button>
           }
