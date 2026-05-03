@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ['./src/**/*.{html,ts}'],
   darkMode: 'class',
   theme: {
     extend: {
@@ -11,7 +9,7 @@ module.exports = {
       },
       colors: {
         'papaya-whip': {
-          50:  '#fdf6e7',
+          50: '#fdf6e7',
           100: '#fbecd0',
           200: '#f7d9a1',
           300: '#f4c671',
@@ -24,7 +22,7 @@ module.exports = {
           950: '#211603',
         },
         'peach-glow': {
-          50:  '#fcefe8',
+          50: '#fcefe8',
           100: '#fadfd1',
           200: '#f4c0a4',
           300: '#efa076',
@@ -37,7 +35,7 @@ module.exports = {
           950: '#200e04',
         },
         'cinnamon-wood': {
-          50:  '#f8f0ec',
+          50: '#f8f0ec',
           100: '#f2e1d9',
           200: '#e5c4b3',
           300: '#d8a68d',
@@ -50,7 +48,7 @@ module.exports = {
           950: '#1b0f09',
         },
         'jet-black': {
-          50:  '#eff4f5',
+          50: '#eff4f5',
           100: '#e0eaeb',
           200: '#c1d5d7',
           300: '#a2bfc3',
@@ -62,8 +60,8 @@ module.exports = {
           900: '#141e1f',
           950: '#0e1516',
         },
-        'evergreen': {
-          50:  '#e8fcfb',
+        evergreen: {
+          50: '#e8fcfb',
           100: '#d2f9f8',
           200: '#a5f3f1',
           300: '#78ede9',
@@ -77,17 +75,16 @@ module.exports = {
         },
       },
       boxShadow: {
-        'neo':          '3px 3px 0px var(--neo-shadow)',
-        'neo-lg':       '4px 4px 0px var(--neo-shadow)',
-        'neo-sm':       '2px 2px 0px var(--neo-shadow)',
-        'neo-bottom':   '0 3px 0px var(--neo-shadow)',
-        'neo-correct':  '4px 4px 0px #16a34a',
-        'neo-warn':     '4px 4px 0px #ca8a04',
-        'neo-error':    '3px 3px 0px #b91c1c',
+        neo: '3px 3px 0px var(--neo-shadow)',
+        'neo-lg': '4px 4px 0px var(--neo-shadow)',
+        'neo-sm': '2px 2px 0px var(--neo-shadow)',
+        'neo-bottom': '0 3px 0px var(--neo-shadow)',
+        'neo-correct': '4px 4px 0px #16a34a',
+        'neo-warn': '4px 4px 0px #ca8a04',
+        'neo-error': '3px 3px 0px #b91c1c',
         'neo-error-sm': '2px 2px 0px #b91c1c',
       },
     },
   },
   plugins: [],
-}
-
+};

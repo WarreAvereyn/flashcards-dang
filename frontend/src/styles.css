@@ -2,6 +2,126 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  /* ---- Headings ---- */
+  .page-title {
+    @apply text-2xl font-bold text-cinnamon-wood-800 dark:text-papaya-whip-200;
+  }
+  .section-title {
+    @apply text-lg font-semibold text-cinnamon-wood-700 dark:text-papaya-whip-300;
+  }
+
+  /* ---- Text ---- */
+  .text-body {
+    @apply text-jet-black-600 dark:text-papaya-whip-400;
+  }
+  .text-error {
+    @apply text-red-600 dark:text-red-400 mb-4;
+  }
+
+  /* ---- Inputs ---- */
+  .input {
+    @apply w-full border-2 border-papaya-whip-300 dark:border-cinnamon-wood-600 px-3 py-2 text-sm
+           bg-white dark:bg-cinnamon-wood-900 text-cinnamon-wood-800 dark:text-papaya-whip-100
+           placeholder:text-cinnamon-wood-300 dark:placeholder:text-cinnamon-wood-500
+           focus:outline-none focus:border-peach-glow-500 dark:focus:border-peach-glow-400 transition-colors;
+  }
+
+  /* ---- Cards ---- */
+  .card {
+    @apply bg-white dark:bg-cinnamon-wood-900 p-5 flex flex-col gap-3
+           border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600 shadow-neo-lg;
+  }
+  .card-row {
+    @apply bg-white dark:bg-cinnamon-wood-900 p-4 flex items-center gap-4
+           border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600 shadow-neo-lg;
+  }
+
+  /* ---- Buttons ---- */
+  .btn-primary {
+    @apply px-5 py-2 text-sm font-medium bg-peach-glow-500 text-white
+           border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
+           shadow-neo hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100;
+  }
+  .btn-primary:disabled {
+    @apply opacity-50;
+  }
+  .btn-secondary {
+    @apply px-5 py-2 text-sm font-medium
+           border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
+           text-cinnamon-wood-600 dark:text-papaya-whip-300
+           shadow-neo-sm hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100;
+  }
+  .btn-study {
+    @apply px-3 py-1.5 text-sm font-medium bg-papaya-whip-500 text-cinnamon-wood-900
+           border-2 border-cinnamon-wood-800 dark:border-cinnamon-wood-500
+           shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100;
+  }
+  .btn-edit {
+    @apply px-3 py-1.5 text-sm font-medium
+           bg-papaya-whip-200 dark:bg-cinnamon-wood-700 text-cinnamon-wood-700 dark:text-papaya-whip-100
+           border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
+           shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100;
+  }
+  .btn-delete {
+    @apply px-3 py-1.5 text-sm font-medium
+           bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300
+           border-2 border-red-300 dark:border-red-800
+           shadow-neo-error-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100;
+  }
+  .btn-delete-lg {
+    @apply px-4 py-2 text-sm font-medium
+           bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300
+           border-2 border-red-300 dark:border-red-800
+           shadow-neo-error hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all duration-100;
+  }
+  .btn-char {
+    @apply px-4 py-1.5 text-sm font-medium
+           bg-papaya-whip-200 dark:bg-cinnamon-wood-800 text-cinnamon-wood-700 dark:text-papaya-whip-200
+           border-2 border-cinnamon-wood-300 dark:border-cinnamon-wood-600
+           shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-100;
+  }
+
+  /* ---- Nav ---- */
+  .nav {
+    @apply bg-cinnamon-wood-800 dark:bg-cinnamon-wood-950 text-papaya-whip-100 px-6 py-4 flex items-center gap-6 shadow-neo-bottom;
+  }
+  .nav-brand {
+    @apply text-lg font-bold tracking-wide hover:text-papaya-whip-400 transition-colors;
+  }
+  .nav-link {
+    @apply text-sm text-papaya-whip-300 hover:text-papaya-whip-400 transition-colors;
+  }
+
+  /* ---- Flashcard ---- */
+  .flashcard {
+    @apply cursor-pointer relative bg-white dark:bg-cinnamon-wood-900 min-h-56
+           flex items-center justify-center p-8 text-center select-none
+           border-2 transition-all duration-300;
+  }
+
+  /* ---- Progress bar ---- */
+  .progress-track {
+    @apply w-full bg-papaya-whip-200 dark:bg-cinnamon-wood-800 h-2;
+  }
+  .progress-fill {
+    @apply bg-papaya-whip-500 dark:bg-papaya-whip-400 h-2 transition-all;
+  }
+
+  /* ---- Links ---- */
+  .link-back {
+    @apply text-sm text-cinnamon-wood-500 dark:text-papaya-whip-400 hover:text-cinnamon-wood-800 dark:hover:text-papaya-whip-200 underline transition-colors;
+  }
+
+  /* ---- Labels ---- */
+  .label {
+    @apply block text-sm font-medium text-cinnamon-wood-700 dark:text-papaya-whip-300 mb-1;
+  }
+  .card-label {
+    @apply text-xs text-cinnamon-wood-400 dark:text-cinnamon-wood-300 font-semibold uppercase mb-1 tracking-wide;
+  }
+}
+
 body {
   background-color: #fdf6e7; /* papaya-whip-50 */
   color: #283c3e; /* jet-black-800 */
