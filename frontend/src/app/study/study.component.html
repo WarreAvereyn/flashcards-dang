@@ -72,10 +72,11 @@
             name="answer"
             placeholder="Your answer"
             autocomplete="off"
+            [(ngModel)]="answerText"
+            (keyup.enter)="submit(answerText)"
             class="border-2 border-papaya-whip-300 dark:border-cinnamon-wood-600 px-3 py-1.5 bg-white dark:bg-cinnamon-wood-900 text-cinnamon-wood-800 dark:text-papaya-whip-100 placeholder:text-cinnamon-wood-300 dark:placeholder:text-cinnamon-wood-500 focus:outline-none focus:border-peach-glow-500 dark:focus:border-peach-glow-400 transition-colors"
-            (keyup.enter)="submit(answerInput.value)"
           />
-          <button (click)="submit(answerInput.value)" type="button" class="btn-primary">
+          <button (click)="submit(answerText)" type="button" class="btn-primary">
             Submit
           </button>
         </form>

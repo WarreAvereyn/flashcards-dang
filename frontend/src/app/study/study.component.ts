@@ -1,6 +1,7 @@
-import { Component, OnInit,  ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { CardService } from '../services/card.service';
 import { DeckService } from '../services/deck.service';
 import { Card } from '../models/card.model';
@@ -8,7 +9,7 @@ import { Deck } from '../models/deck.model';
 
 @Component({
   selector: 'app-study',
-  imports: [RouterLink, NgClass],
+  imports: [RouterLink, NgClass, FormsModule],
   templateUrl: './study.component.html',
 })
 export class StudyComponent implements OnInit {
@@ -22,6 +23,8 @@ export class StudyComponent implements OnInit {
   correctAnswers: Card[] = [];
   wrongAnswers: Card[] = [];
   feedbackState: 'correct' | 'wrong-first' | 'wrong-final' | null = null;
+  answerText = '';
+
 
   get cardFeedbackClasses(): string {
     if (this.feedbackState === 'correct') return 'border-green-400 shadow-neo-correct';
@@ -42,6 +45,7 @@ export class StudyComponent implements OnInit {
     private route: ActivatedRoute,
     private deckService: DeckService,
     private cardService: CardService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +69,7 @@ export class StudyComponent implements OnInit {
   }
 
   next(): void {
+    this.answerText = '';
     this.feedbackState = null;
     if (this.currentIndex < this.cards.length - 1) {
       this.currentIndex++;
@@ -130,10 +135,11 @@ export class StudyComponent implements OnInit {
 
   insertCharacter(char: string): void {
     const input = this.answerInput.nativeElement;
-    const start = input.selectionStart ?? input.value.length;
-    const end = input.selectionEnd ?? input.value.length;
-    input.value = input.value.slice(0, start) + char + input.value.slice(end);
-    input.setSelectionRange(start + 1, start + 1);
+    const start = input.selectionStart ?? this.answerText.length;
+    const end = input.selectionEnd ?? this.answerText.length;
+    this.answerText = this.answerText.slice(0, start) + char + this.answerText.slice(end);
+    this.cdr.detectChanges();
     input.focus();
+    input.setSelectionRange(start + 1, start + 1);
   }
 }
