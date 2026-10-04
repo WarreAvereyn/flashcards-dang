@@ -90,24 +90,22 @@ export class StudyComponent implements OnInit {
   }
 
   submit(text: string): void {
-    if (text === '' || text === null) {
-      return;
-    } 
-    // First attempt
-    if (this.currentIndex < this.numberOfCards) {
-      if (text.trim().toLowerCase() === this.current?.back.trim().toLowerCase()) {
-        this.markCorrect();
-      } 
-      else {
-        this.markWrong(1);
-      }
-    }
-    // Second attempt
-    else{
-      this.markWrong(2);
+    if (!text) return;
+
+    const normalize = (s: string): string =>
+      s.trim().toLowerCase().replace(/\s*\(.*?\)\s*/g, '').trim();
+
+    const answer: string = normalize(text);
+    const acceptedAnswers: string[] = this.current!.back.split('/').map(normalize);
+    const isSecondAttempt: boolean = this.currentIndex >= this.numberOfCards;
+
+    if (acceptedAnswers.includes(answer)) {
+      this.markCorrect();
+    } else {
+      this.markWrong(isSecondAttempt ? 2 : 1);
     }
   }
-
+  
   markCorrect(): void {
     this.correctAnswers.push(this.current!);
     this.feedbackState = 'correct';
